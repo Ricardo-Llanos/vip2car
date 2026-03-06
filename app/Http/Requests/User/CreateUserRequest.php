@@ -36,15 +36,14 @@ class CreateUserRequest extends BaseUserRequest
     public function messages(): array
     {
         return array_merge_recursive($this->uniqueMessages(), parent::messages());
-
     }
 
     public function uniqueMessages(): array
     {
         return [
-            'name.required' => '',
-            'email.required' => '',
-            'email.unique' => '',
+            'name.required' => 'El campo nombre es obligatorio',
+            'email.required' => 'El campo correo electrónico es obligatorio',
+            'email.unique' => 'El correo electrónico ya se encuentra registrado',
         ];
     }
 }

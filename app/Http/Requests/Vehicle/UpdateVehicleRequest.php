@@ -32,7 +32,7 @@ class UpdateVehicleRequest extends BaseVehicleRequest
     {
         return [
             'client_id' => ['sometimes'],
-            'plate' => ['sometimes', 'unique:vehicles,plate,'.$id],
+            'plate' => ['sometimes', 'unique:vehicles,plate,' . $id],
             'brand' => ['sometimes'],
             'model' => ['sometimes'],
             'manufacturing_year' => ['sometimes'],
@@ -42,13 +42,12 @@ class UpdateVehicleRequest extends BaseVehicleRequest
     public function messages(): array
     {
         return array_merge_recursive($this->uniqueMessages(), parent::messages());
-
     }
 
     public function uniqueMessages(): array
     {
         return [
-            'plate.unique' => '',
+            'plate.unique' => 'La placa ya se encuentra registrada',
         ];
     }
 }

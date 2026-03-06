@@ -33,24 +33,23 @@ class UpdateClientRequest extends BaseClientRequest
         return [
             'name' => ['sometimes'],
             'lastname' => ['sometimes'],
-            'email' => ['sometimes', 'unique:clients,email,'.$id],
-            'dni' => ['sometimes', 'unique:clients,dni,'.$id],
+            'email' => ['sometimes', 'unique:clients,email,' . $id],
+            'dni' => ['sometimes', 'unique:clients,dni,' . $id],
             'phone_code' => ['sometimes'], // Contamos que no se ingrese el "+", solo el código numérico
-            'phone' => ['sometimes', 'unique:clients,phone,'.$id],
+            'phone' => ['sometimes', 'unique:clients,phone,' . $id],
         ];
     }
 
     public function messages(): array
     {
         return array_merge_recursive($this->uniqueMessages(), parent::messages());
-
     }
 
     public function uniqueMessages(): array
     {
         return [
-            'dni.unique' => '',
-            'phone.unique' => '',
+            'dni.unique' => 'El DNI ya se encuentra registrado',
+            'phone.unique' => 'El número de teléfono ya se encuentra registrado',
         ];
     }
 }

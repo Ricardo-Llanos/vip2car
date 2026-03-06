@@ -53,7 +53,7 @@ class ClientService
      * 
      * El método utiliza una transacción para asegurar la integridad de la base de datos y el sistema
      * 
-     * @param array{name:string,lastname:string,dni:string,phone_code:string,phone:string} $data
+     * @param array{name:string,lastname:string,email:string,dni:string,phone_code:string,phone:string} $data
      * @return App\Models\Client
      */
     public function storeClient(array $data): Client
@@ -79,7 +79,7 @@ class ClientService
      * El método utiliza una transacción para asegurar la integridad de la base de datos y el sistema
      * 
      * @param int $clientId - Identificador único del cliente
-     * @param array{name:?string,lastname:?string,dni:?string,phone_code:?string,phone:?string} $data
+     * @param array{name:?string,lastname:?string,email:?string,dni:?string,phone_code:?string,phone:?string} $data
      * @return App\Models\Client
      */
     public function udpateClient(int $clientId, array $data): Client

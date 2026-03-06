@@ -142,7 +142,7 @@ class VehicleService
         }
 
         if (empty($paginate['per_page'])){
-            $paginate['per_page'] = 1;
+            $paginate['per_page'] = 20;
         }
 
         return $model->paginate(

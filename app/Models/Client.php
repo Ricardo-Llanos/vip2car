@@ -20,6 +20,7 @@ class Client extends Model
     protected $fillable = [
         'name',
         'lastname',
+        'email',
         'dni',
         'phone_code',
         'phone'
@@ -46,7 +47,7 @@ class Client extends Model
      * Relación: Client-> "hasMany" ->Vehicles;
      */
     public function vehicles(){
-        return $this->HasMany(Vehicle::class, 'id');
+        return $this->HasMany(Vehicle::class);
     }
 
     /*================================================

@@ -38,22 +38,21 @@ class CreateVehicleRequest extends BaseVehicleRequest
     public function messages(): array
     {
         return array_merge_recursive($this->uniqueMessages(), parent::messages());
-
     }
 
     public function uniqueMessages(): array
     {
         return [
-            'client_id.required' => '',
+            'client_id.required' => 'El campo cliente es obligatorio',
 
-            'plate.required' => '',
-            'plate.unique' => '',
+            'plate.required' => 'El campo placa es obligatorio',
+            'plate.unique' => 'La placa ya se encuentra registrada',
 
-            'brand.required' => '',
+            'brand.required' => 'El campo marca es obligatorio',
 
-            'model.required' => '',
+            'model.required' => 'El campo modelo es obligatorio',
 
-            'manufacturing_year.required' => '',
+            'manufacturing_year.required' => 'El campo año de fabricación es obligatorio',
         ];
     }
 }

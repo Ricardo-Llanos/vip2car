@@ -32,7 +32,7 @@ class UpdateUserRequest extends BaseUserRequest
     {
         return [
             'name' => ['sometimes'],
-            'email' => ['sometimes', 'unique:users,email,'.$id],
+            'email' => ['sometimes', 'unique:users,email,' . $id],
             'password' => ['sometimes'] // Una por defecto
         ];
     }
@@ -40,13 +40,12 @@ class UpdateUserRequest extends BaseUserRequest
     public function messages(): array
     {
         return array_merge_recursive($this->uniqueMessages(), parent::messages());
-
     }
 
     public function uniqueMessages(): array
     {
         return [
-            'email.unique' => '',
+            'email.unique' => 'El correo electrónico ya se encuentra registrado',
         ];
     }
 }

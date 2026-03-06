@@ -36,19 +36,19 @@ abstract class BaseClientRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.string' => '',
-            'name.max' => '',
-            'name.regex' => '',
+            'name.string' => 'El campo nombre debe ser un texto',
+            'name.max' => 'El campo nombre debe tener un máximo de 50 caracteres',
+            'name.regex' => 'El campo nombre debe contener solo letras y espacios',
 
-            'lastname.string' => '',
-            'lastname.max' => '',
-            'lastname.regex' => '',
+            'lastname.string' => 'El campo apellido debe ser un texto',
+            'lastname.max' => 'El campo apellido debe tener un máximo de 50 caracteres',
+            'lastname.regex' => 'El campo apellido debe contener solo letras y espacios',
 
-            'dni.digits' => '',
+            'dni.digits' => 'El campo DNI debe tener 8 dígitos',
 
-            'phone_code.integer' => '',
-            
-            'phone.digits' => '',
+            'phone_code.integer' => 'El campo código de teléfono debe ser un número entero',
+
+            'phone.digits' => 'El campo número de teléfono debe tener 9 dígitos',
         ];
     }
 

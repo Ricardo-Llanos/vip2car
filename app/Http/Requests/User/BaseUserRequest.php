@@ -25,11 +25,12 @@ abstract class BaseUserRequest extends FormRequest
         return [
             'name' => ['string', 'max:50', 'regex:/^[\p{L}\s-]+$/u'],
             'email' => ['email'],
-            'password' => ['confirmed', 
+            'password' => [
+                'confirmed',
                 Password::min(8)
-                ->mixedCase() // mayúsculas y minúsculas
-                ->numbers() // números
-                ->symbols() // símbolos
+                    ->mixedCase() // mayúsculas y minúsculas
+                    ->numbers() // números
+                    ->symbols() // símbolos
             ],
         ];
     }
@@ -39,16 +40,16 @@ abstract class BaseUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.string' => '',
-            'email.email' => '',
-            'password.confirmed' => '',
-            'password.min' => '',
-            'password.mixed' => '',
-            'password.numbers' => '',
-            'password.symbols' => '',
+            'name.string' => 'El campo nombre debe ser un texto',
+            'email.email' => 'El campo correo electrónico debe ser un correo electrónico válido',
+
+            'password.confirmed' => 'Las contraseñas no coinciden',
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres',
+            'password.mixed' => 'La contraseña debe contener al menos una mayúscula, una minúscula, un número y un símbolo',
+            'password.numbers' => 'La contraseña debe contener al menos un número',
+            'password.symbols' => 'La contraseña debe contener al menos un símbolo',
         ];
     }
 
     abstract protected function uniqueMessages(): array;
-
 }

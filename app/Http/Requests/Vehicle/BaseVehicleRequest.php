@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Vehicle;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 abstract class BaseVehicleRequest extends FormRequest
@@ -23,10 +24,10 @@ abstract class BaseVehicleRequest extends FormRequest
     {
         return [
             'client_id' => ['integer', 'exists:clients,id'],
-            'plate' => ['string', 'regex:/^[A-Z]{2,3}-\d{3,4}'],
+            'plate' => ['string', 'regex:/^[A-Z]{2,3}-\d{3,4}$/'],
             'brand' => ['string', 'max:50'], // TODO - verificar cantidad de 
             'model' => ['string', 'max:50'],
-            'manufacturing_year' => ['date', 'minus_or_equal:'.now()],
+            'manufacturing_year' => ['integer', 'min:1886', 'max:' . Carbon::now()->year],
         ];
     }
 
@@ -35,22 +36,23 @@ abstract class BaseVehicleRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'client_id.integer' => '',
-            'client_id.exists' => '',
+            'client_id.integer' => 'El campo cliente debe ser un número entero',
+            'client_id.exists' => 'El cliente no existe',
 
-            'plate.string' => '',
-            'plate.regex' => '',
+            'plate.string' => 'El campo placa debe ser un texto',
+            'plate.regex' => 'El campo placa debe tener el formato XXX-XXX',
 
-            'brand.string' => '',
-            'brand.max' => '',
+            'brand.string' => 'El campo marca debe ser un texto',
+            'brand.max' => 'El campo marca debe tener un máximo de 50 caracteres',
 
-            'model.string' => '',
-            'model.max' => '',
+            'model.string' => 'El campo modelo debe ser un texto',
+            'model.max' => 'El campo modelo debe tener un máximo de 50 caracteres',
 
-            'manufacturing_year.digits' => '',
+            'manufacturing_year.integer' => 'El campo año de fabricación debe ser un número entero',
+            'manufacturing_year.min' => 'El campo año de fabricación debe ser mayor o igual a 1886',
+            'manufacturing_year.max' => 'El campo año de fabricación debe ser menor o igual a la fecha actual',
         ];
     }
 
     abstract protected function uniqueMessages(): array;
-
 }

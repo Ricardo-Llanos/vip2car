@@ -26,7 +26,7 @@ class VehicleFactory extends Factory
             'plate' => fake()->unique()->toUpper(fake()->bothify('???-###')),
             'brand' => fake()->text(50),
             'model' => fake()->text(50),
-            'manufacturing_year' => fake()->dateTimeBetween(), // Desde 1996 -> now()
+            'manufacturing_year' => fake()->numberBetween(1600, 2026), // Desde 1996 -> now()
         ];
     }
 }

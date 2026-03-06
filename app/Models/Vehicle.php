@@ -33,7 +33,7 @@ class Vehicle extends Model
      * Relación: Vehicle -> "belongsTo" -> Client;
      */
     public function client(){
-        return $this->belongsTo(Client::class, 'id');
+        return $this->belongsTo(Client::class);
     }
 
     /*================================================

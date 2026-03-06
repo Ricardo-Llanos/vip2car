@@ -27,13 +27,14 @@ class AuthRequest extends FormRequest
         ];
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
-            'email.required' => '',
-            'email.email' => '',
+            'email.required' => 'El campo correo electrónico es obligatorio',
+            'email.email' => 'El campo correo electrónico debe ser un correo electrónico válido',
             'email.users' => 'Usuario u contraseña incorrecta. Inténtelo nuevamente',
 
-            'password.required' => '',
+            'password.required' => 'El campo contraseña es obligatorio',
         ];
     }
 }

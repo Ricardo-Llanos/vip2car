@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('plate', 9)->index();
             $table->string('brand', 50);
             $table->string('model', 50);
-            $table->date('manufacturing_year');
+            $table->char('manufacturing_year', 4);
 
             $table->timestamps();
         });

@@ -39,21 +39,20 @@ class CreateClientRequest extends BaseClientRequest
     public function messages(): array
     {
         return array_merge_recursive($this->uniqueMessages(), parent::messages());
-
     }
 
     public function uniqueMessages(): array
     {
         return [
-            'name.required' => '',
+            'name.required' => 'El campo nombre es obligatorio',
 
-            'lastname.required' => '',
+            'lastname.required' => 'El campo apellido es obligatorio',
 
-            'dni.required' => '',
-            'dni.unique' => '',
-            
-            'phone.required' => '',
-            'phone.unique' => '',
+            'dni.required' => 'El campo DNI es obligatorio',
+            'dni.unique' => 'El DNI ya se encuentra registrado',
+
+            'phone.required' => 'El campo número de teléfono es obligatorio',
+            'phone.unique' => 'El número de teléfono ya se encuentra registrado',
         ];
     }
 }

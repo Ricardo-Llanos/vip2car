@@ -61,7 +61,7 @@ class VehicleController extends Controller
     public function show(int $id)
     {
         $user = $this->vehicleService->showVehicle($id);
-        $user->load(['vehicles']);
+        $user->load(['client']);
 
         return response()->json([
             'message' => 'Vehículo obtenido correctamente',
