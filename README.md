@@ -14,19 +14,34 @@ El objetivo es centralizar la gestión de los usuarios, los clientes y los vehí
 
 
 ## Funcionalidades Implementadas
+El proyecto trabajó sobre la base de 3 funcionalidades
+    - Users (Acceso al sistema)
+    - Clients (A registrar en el sistema)
+    - Vehicles (A registrar en el sistema)
 
+Para todos estos se partió del principio de responsabilidad única, por lo cuales cumplen con los siguientes apartados:
+    - Migration
+    - Model
+    - Factory
+    - Seeder
+    - Request
+    - Controller
+    - Service
+    - Resource
+
+A su vez, para asegurar la integridad de los datos, se cuenta con un Helper y Trait para formatear la información antes de validar su ingreso en los Request:
+    - Helper: DataFormatter (formato para todos los datos)
+    - Trait: PrepareData (prepareForValidation usado como trait para no repetir el código)
+
+Por su parte, también se trató de asegurar la correcta auditoría de la información, para lo cual se cuenta con un Logger especializado
+    - Loggin/ApiLogger - Guarda los logs del sistema por niveles, agregando información especial en el contexto (id del usuario), y usando un canal personalizado (app_api).
 
 ## Requisitos de entorno (Stack Tecnológico)
 ```
-PHP 8.2+
-
-Composer 2.8.5+
-
-Laravel 12+
-
-PostgreSQL / MySQL
-
-Laravel Sanctum (para autenticación de API)
+    PHP 8.2+
+    Composer 2.8.5+
+    Laravel 12+
+    PostgreSQL 16+
 ```
 
 ## Instalación
@@ -47,7 +62,7 @@ Para ejecutar este proyecto en un entorno de desarrollo local, necesitarás tene
 ```
 
 ```bash
-    # 3. Crear la base de datos vip2car
+    # 3. Crear la base de datos vip2car en un entorno PostgreSQL
     CREATE DATABASE vip2car
 ```
 
@@ -83,3 +98,10 @@ Para ejecutar este proyecto en un entorno de desarrollo local, necesitarás tene
 
     # La API estará disponible en http://127.0.0.1:8000.
 ```
+
+
+Las credenciales por defecto son las siguiente:
+    - email: test@example.com
+    - password: 123456
+
+Todos los usuarios comparten la misma contraseña (dentro del seeder se muestran) 
