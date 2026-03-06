@@ -7,6 +7,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\CreateClientRequest;
 use App\Http\Requests\Client\IndexClientRequest;
+use App\Http\Requests\Client\SearchClientRequest;
 use App\Http\Requests\Client\UpdateClientRequest;
 use App\Http\Resources\ClientResource;
 use App\Services\ClientService;
@@ -70,6 +71,21 @@ class ClientController extends Controller
         ], Response::HTTP_OK);
     }
 
+    public function search(SearchClientRequest $request){
+        $data = $request->validated();
+
+        $clients = $this->clientService->searchClient($data);
+        $clients->load(['vehicles']);
+
+        return response()->json([
+            'message' => 'Búsqueda de usuarios realizada correctamente',
+            'data' => ClientResource::collection($clients),
+            'current_page' => $clients->currentPage(),
+            'per_page' => $clients->perPage(),
+            'last_page' => $clients->lastPage(),
+            'total' => $clients->total(),
+        ], Response::HTTP_OK);
+    }
     /**
      * Update the specified resource in storage.
      */

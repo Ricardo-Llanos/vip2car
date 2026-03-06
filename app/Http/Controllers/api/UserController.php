@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\IndexUserRequest;
+use App\Http\Requests\User\SearchUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
@@ -64,6 +65,21 @@ class UserController extends Controller
         return response()->json([
             'message' => 'Usuario obtenido correctamente',
             'data' => new UserResource($user),
+        ], Response::HTTP_OK);
+    }
+
+    public function search(SearchUserRequest $request){
+        $data = $request->validated();
+
+        $users = $this->userService->searchUser($data);
+
+        return response()->json([
+            'message' => 'Búsqueda de usuarios realizada correctamente',
+            'data' => UserResource::collection($users),
+            'current_page' => $users->currentPage(),
+            'per_page' => $users->perPage(),
+            'last_page' => $users->lastPage(),
+            'total' => $users->total(),
         ], Response::HTTP_OK);
     }
 

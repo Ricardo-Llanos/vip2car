@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->group(function(){
     // Endpoints de users (Inicio de sesión)
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/user/{id}', [UserController::class, 'show']);
-    // Route::get('/search-user', [UserController::class, 'search']);
+    Route::get('/search-user', [UserController::class, 'search']);
     Route::post('/create-user', [UserController::class, 'store']);
     Route::put('/update-user/{id}', [UserController::class, 'update']);
     Route::delete('/delete-user/{id}', [UserController::class, 'destroy']);
@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function(){
     // Endpoints de clientes
     Route::get('/clients', [ClientController::class, 'index']);
     Route::get('/client/{id}', [ClientController::class, 'show']);
-    // Route::get('/search-client', [ClientController::class, 'search']);
+    Route::get('/search-client', [ClientController::class, 'search']);
     Route::post('/create-client', [ClientController::class, 'store']);
     Route::put('/update-client/{id}', [ClientController::class, 'update']);
     Route::delete('/delete-client/{id}', [ClientController::class, 'destroy']);
@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function(){
     // Endpoints de vehículos
     Route::get('/vehicles', [VehicleController::class, 'index']);
     Route::get('/vehicle/{id}', [VehicleController::class, 'show']);
-    // Route::get('/search-vehicle', [VehicleController::class, 'search']);
+    Route::get('/search-vehicle', [VehicleController::class, 'search']);
     Route::post('/create-vehicle', [VehicleController::class, 'store']);
     Route::put('/update-vehicle/{id}', [VehicleController::class, 'update']);
     Route::delete('/delete-vehicle/{id}', [VehicleController::class, 'destroy']);

@@ -47,6 +47,40 @@ class VehicleService
     }
 
     /**
+     * @param array{client_id:int,plate:string,brand:string,model:string,manufacturing_year:string,page:int,paginate:int} $data
+     * @return 
+     */
+    public function searchVehicles(array $data){
+        $vehicles = Vehicle::query();
+
+        if (!empty($data['client_id'])){
+            $vehicles->where('client_id', $data['client_id']);
+        }
+
+        if (!empty($data['plate'])){
+            $vehicles->where('plate', 'LIKE', $data['plate'].'%');
+        }
+
+        if (!empty($data['brand'])){
+            $vehicles->where('brand', 'LIKE', $data['brand'].'%');
+        }
+
+        if (!empty($data['model'])){
+            $vehicles->where('model', 'LIKE', $data['model'].'%');
+        }
+
+        if (!empty($data['manufacturing_year'])){
+            $vehicles->where('manufacturing_year', $data['manufacturing_year']);
+        }
+
+        return $this->paginateVehicle(
+            paginate: $data,
+            model: $vehicles
+        );
+    }
+
+
+    /**
      * Método especializado en la creación de un vehicle.
      * 
      * El método utiliza una transacción para asegurar la integridad de la base de datos y el sistema

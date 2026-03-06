@@ -2,11 +2,26 @@
 
 namespace App\Http\Requests\Vehicle;
 
+use App\Helpers\DataFormatter;
+use App\Http\Requests\Trait\PrepareData;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 abstract class BaseVehicleRequest extends FormRequest
 {
+    use PrepareData;
+
+    /**
+     * Array de campos a formatear (Ver trait PrepareData)
+     * 
+     * @var array<string,DataFormatter::FORMAT_METHOD> $prepare
+     */
+    protected array $prepare = [
+        'plate' => DataFormatter::PLATE_FORMAT,
+        'brand' => DataFormatter::BRAND_FORMAT,
+        'model' => DataFormatter::MODEL_FORMAT
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -25,7 +40,7 @@ abstract class BaseVehicleRequest extends FormRequest
         return [
             'client_id' => ['integer', 'exists:clients,id'],
             'plate' => ['string', 'regex:/^[A-Z]{2,3}-\d{3,4}$/'],
-            'brand' => ['string', 'max:50'], // TODO - verificar cantidad de 
+            'brand' => ['string', 'max:50'],
             'model' => ['string', 'max:50'],
             'manufacturing_year' => ['integer', 'min:1886', 'max:' . Carbon::now()->year],
         ];

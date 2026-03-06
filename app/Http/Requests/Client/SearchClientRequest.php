@@ -6,7 +6,7 @@ use App\Helpers\DataFormatter;
 use App\Http\Requests\Trait\PrepareData;
 use Illuminate\Foundation\Http\FormRequest;
 
-abstract class BaseClientRequest extends FormRequest
+class SearchClientRequest extends FormRequest
 {
     use PrepareData;
 
@@ -37,16 +37,17 @@ abstract class BaseClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string', 'max:50', 'regex:/^[\p{L}\s-]+$/u'],
-            'lastname' => ['string', 'max:50', 'regex:/^[\p{L}\s-]+$/u'],
-            'email' => ['email'],
-            'dni' => ['digits:8'],
-            'phone_code' => ['integer'], // Contamos que no se ingrese el "+", solo el código numérico
-            'phone' => ['digits:9'], // TODO - Analizar su cambio (digits solo serviría para números en Perú)
+            'name' => ['sometimes', 'string', 'max:50', 'regex:/^[\p{L}\s-]+$/u'],
+            'lastname' => ['sometimes', 'string', 'max:50', 'regex:/^[\p{L}\s-]+$/u'],
+            'email' => ['sometimes', ],
+            'dni' => ['sometimes', ],
+            'phone_code' => ['sometimes', ], // Contamos que no se ingrese el "+", solo el código numérico
+            'phone' => ['sometimes', ], // TODO - Analizar su cambio (digits solo serviría para números en Perú)
+
+            'page' => ['sometimes', 'min:1', 'integer'],
+            'per_page' => ['sometimes', 'integer', 'min:10', 'max:50'],
         ];
     }
-
-    abstract protected function uniqueRules(): array;
 
     public function messages(): array
     {
@@ -59,13 +60,15 @@ abstract class BaseClientRequest extends FormRequest
             'lastname.max' => 'El campo apellido debe tener un máximo de 50 caracteres',
             'lastname.regex' => 'El campo apellido debe contener solo letras y espacios',
 
-            'dni.digits' => 'El campo DNI debe tener 8 dígitos',
-
             'phone_code.integer' => 'El campo código de teléfono debe ser un número entero',
 
-            'phone.digits' => 'El campo número de teléfono debe tener 9 dígitos',
+            'page.min' => 'El campo página debe ser un número entero mayor o igual a 1',
+            'page.integer' => 'El campo página debe ser un número entero',
+
+            'per_page.integer' => 'El campo número de registros por página debe ser un número entero',
+            'per_page.min' => 'El campo número de registros por página debe ser un número entero mayor o igual a 10',
+            'per_page.max' => 'El campo número de registros por página debe ser un número entero menor o igual a 50',
+
         ];
     }
-
-    abstract protected function uniqueMessages(): array;
 }

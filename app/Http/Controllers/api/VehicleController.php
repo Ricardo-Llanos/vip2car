@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vehicle\CreateVehicleRequest;
 use App\Http\Requests\Vehicle\IndexVehicleRequest;
+use App\Http\Requests\Vehicle\SearchVehicleRequest;
 use App\Http\Requests\Vehicle\UpdateVehicleRequest;
 use App\Http\Resources\VehicleResource;
 use App\Services\VehicleService;
@@ -69,6 +70,22 @@ class VehicleController extends Controller
         ], Response::HTTP_OK);
     }
 
+    public function search(SearchVehicleRequest $request)
+    {
+        $data = $request->validated();
+
+        $vehicles = $this->vehicleService->searchVehicles($data);
+        $vehicles->load(['client']);
+
+        return response()->json([
+            'message' => 'Vehículos obtenidos correctamente',
+            'data' => VehicleResource::collection($vehicles),
+            'current_page' => $vehicles->currentPage(),
+            'per_page' => $vehicles->perPage(),
+            'last_page' => $vehicles->lastPage(),
+            'total' => $vehicles->total(),
+        ], Response::HTTP_OK);
+    }
     /**
      * Update the specified resource in storage.
      */

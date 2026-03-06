@@ -2,11 +2,25 @@
 
 namespace App\Http\Requests\User;
 
+use App\Helpers\DataFormatter;
+use App\Http\Requests\Trait\PrepareData;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
 abstract class BaseUserRequest extends FormRequest
 {
+    use PrepareData;
+
+    /**
+     * Array de campos a formatear (Ver trait PrepareData)
+     * 
+     * @var array<string,DataFormatter::FORMAT_METHOD> $prepare
+     */
+    protected array $prepare = [
+        'name' => DataFormatter::USER_NAME_FORMAT,
+        'email' => DataFormatter::EMAIL_FORMAT,
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      */

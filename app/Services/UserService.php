@@ -31,7 +31,7 @@ class UserService
         $users = User::query();
 
         return $this->paginateUsers(
-            data: $data, 
+            paginate: $data, 
             model: $users
         );
     }
@@ -44,6 +44,27 @@ class UserService
      */
     public function showUser(int $id){
         return User::findOrFail($id);
+    }
+
+    /**
+     * @param array{name:string,email:string,page:int,paginate:int} $data
+     * @return 
+     */
+    public function searchUser(array $data){
+        $users = User::query();
+
+        if (!empty($data['name'])){
+            $users->where('name', 'LIKE', $data['name'].'%');
+        }
+
+        if (!empty($data['email'])){
+            $users->where('email', 'LIKE', $data['email'].'%');
+        }
+
+        return $this->paginateUsers(
+            paginate: $data,
+            model: $users
+        );
     }
 
     /**
@@ -131,23 +152,23 @@ class UserService
     /**
      * Método helper especializado en la paginación de los usuarios
      * 
-     * @param array{per_page:int,page:int} $data
+     * @param array{per_page:int,page:int} $paginate
      * @param \Illuminate\Database\Eloquent\Builder $model
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    private function paginateUsers(array $data, Builder $model): LengthAwarePaginator
+    private function paginateUsers(array $paginate, Builder $model): LengthAwarePaginator
     {
-        if (empty($data['page'])){
-            $data['page'] = 1;
+        if (empty($paginate['page'])){
+            $paginate['page'] = 1;
         }
 
-        if (empty($data['per_page'])){
-            $data['per_page'] = 20;
+        if (empty($paginate['per_page'])){
+            $paginate['per_page'] = 20;
         }
 
         return $model->paginate(
-            page: $data['page'],
-            perPage: $data['per_page']
+            page: $paginate['page'],
+            perPage: $paginate['per_page']
         );
     }
 }

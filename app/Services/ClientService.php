@@ -32,7 +32,7 @@ class ClientService
         $clients = Client::query();
 
         return $this->paginateClients(
-            data: $data, 
+            paginate: $data, 
             model: $clients
         );
     }
@@ -46,6 +46,43 @@ class ClientService
     public function showClient(int $id): Client
     {
         return Client::findOrFail($id);
+    }
+
+    /**
+     * @param array{name:string,lastname:string,email:string,dni:string,phone_code:string,phone:string,page:int,paginate:int} $data
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Client>
+     */
+    public function searchClient(array $data){
+        $clients = Client::query();
+
+        if (!empty($data['name'])){
+            $clients->where('name', 'LIKE', $data['name'].'%');
+        }
+
+        if (!empty($data['lastname'])){
+            $clients->where('lastname', 'LIKE', $data['lastname'].'%');
+        }
+
+        if (!empty($data['email'])){
+            $clients->where('email', 'LIKE', $data['email'].'%');
+        }
+
+        if (!empty($data['dni'])){
+            $clients->where('dni', 'LIKE', $data['dni'].'%');
+        }
+
+        if (!empty($data['phone_code'])){
+            $clients->where('phone_code', 'LIKE', $data['phone_code'].'%');
+        }
+        
+        if (!empty($data['phone'])){
+            $clients->where('phone', 'LIKE', $data['phone'].'%');
+        }
+
+        return $this->paginateClients(
+            paginate: $data,
+            model: $clients
+        );
     }
 
     /**
@@ -131,22 +168,22 @@ class ClientService
     /**
      * Método helper especializado en la paginación de los clientes
      * 
-     * @param array{per_page:int,page:int} $data
+     * @param array{per_page:int,page:int} $paginate
      * @param \Illuminate\Database\Eloquent\Builder $model
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    private function paginateClients(array $data, Builder $model){
-        if (empty($data['page'])){
-            $data['page'] = 1;
+    private function paginateClients(array $paginate, Builder $model){
+        if (empty($paginate['page'])){
+            $paginate['page'] = 1;
         }
 
-        if (empty($data['per_page'])){
-            $data['per_page'] = 20;
+        if (empty($paginate['per_page'])){
+            $paginate['per_page'] = 20;
         }
 
         return $model->paginate(
-            page: $data['page'],
-            perPage: $data['per_page']
+            page: $paginate['page'],
+            perPage: $paginate['per_page']
         );
     }
 }

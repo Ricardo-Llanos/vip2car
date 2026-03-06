@@ -7,31 +7,52 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Menú de instalación
+## Descripción
+Este proyecto es un sistema de Gestión desarrollado para la Empresa VIP2CAR. La aplicación está pensada hacia una arquitectura desacoplada, con una API RESTful robusta en el backend y una Single-Page Application (SPA) dinámica en el frontend (trabajo futuro).
+
+El objetivo es centralizar la gestión de los usuarios, los clientes y los vehículos..
+
+
+## Funcionalidades Implementadas
+
+
+## Requisitos de entorno (Stack Tecnológico)
+```
+PHP 8.2+
+
+Composer 2.8.5+
+
+Laravel 12+
+
+PostgreSQL / MySQL
+
+Laravel Sanctum (para autenticación de API)
+```
+
+## Instalación
+Para ejecutar este proyecto en un entorno de desarrollo local, necesitarás tener instalado PHP, Composer y un gestor de base de datos (PostgreSQL o MySQL).
 
 ```bash
-    # 2. Instala las dependencias de PHP
+    # 1. Instala las dependencias de PHP
     composer install
 ```
 
 ```bash
-    # 3. Copia el archivo de variables de entorno
-    cp .env.example .env
+    # 2. Copia el archivo de variables de entorno
+    # Linux:
+        cp .env.example .env
+
+    # Windows:
+        copy .env.example .env
 ```
 
 ```bash
-    # 5. Genera la clave de la aplicación
-    php artisan key:generate
-```
-
-
-1. Crear la base de datos vip2car
-```bash
+    # 3. Crear la base de datos vip2car
     CREATE DATABASE vip2car
 ```
 
-2. Rellenar las variables de entorno con las credenciales de la BD  a utilizar
-```php 
+```php
+    # 4.  Rellenar las variables de entorno con las credenciales de la BD  a utilizar
     DB_CONNECTION=pgsql
     DB_HOST=127.0.0.1
     DB_PORT=5432
@@ -40,7 +61,25 @@
     DB_PASSWORD= #completar
 ```
 
-3. Correr las migraciones y seeders
-```bash 
+```bash
+    # 5. Genera la clave de la aplicación
+    php artisan key:generate
+```
+
+```bash
+    # 6. Correr las migraciones y seeders
     php artisan migrate:refresh --seed
+```
+
+# ▶️ Ejecutando la Aplicación
+
+**- Para trabajar en el proyecto, necesitarás tener 1 terminal abierta.**
+
+## BACKEND
+```bash
+    # Terminal 1: Iniciar el servidor del Backend
+
+    php artisan serve
+
+    # La API estará disponible en http://127.0.0.1:8000.
 ```

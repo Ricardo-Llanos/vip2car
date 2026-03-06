@@ -2,10 +2,23 @@
 
 namespace App\Http\Requests\Authorization;
 
+use App\Helpers\DataFormatter;
+use App\Http\Requests\Trait\PrepareData;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AuthRequest extends FormRequest
 {
+    use PrepareData;
+
+    /**
+     * Array de campos a formatear (Ver trait PrepareData)
+     * 
+     * @var array<string,DataFormatter::FORMAT_METHOD> $prepare
+     */
+    protected array $prepare = [
+        'email' => DataFormatter::EMAIL_FORMAT,
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      */
