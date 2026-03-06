@@ -129,3 +129,6 @@ en el cual se especifican todos los endpoints de la API, de manera que puedan im
 ```
 
 Y listo, todos los endpoints estarán operativos para ser usados
+
+# ACTIVIDAD 1
+Se incluye el diagrama de base de datos Entidad-Relación tanto en formato pdf, como jpg, así como el script de base de datos hecho en transacSQL en la carpeta: BBDD.
