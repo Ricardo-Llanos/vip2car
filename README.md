@@ -105,3 +105,27 @@ Las credenciales por defecto son las siguiente:
     - password: 123456
 
 Todos los usuarios comparten la misma contraseña (dentro del seeder se muestran) 
+
+## POSTMAN
+Se cuenta a su vez con un archivo .json: Vip2Car.postman_collection.json
+en el cual se especifican todos los endpoints de la API, de manera que puedan importarse y probar el resultado del desarrollo.
+
+```
+    # 1. Configurar las variables globales
+    En el apartado de Vip2Car/Variables se encuentran 2 variables de entorno:
+        - base_url: #completar con la ruta de la api (php artisan serve)
+        - api: #asignar => /api/
+```
+
+
+```
+    # 2. Logearse y copiar el token
+    - Existe el endpoint Auth/login, dentro de este deberemos ejecutar la solicitud y copiar el token de seguridad
+
+    # 3. Pegar la autorización
+    - Una vez copiado el token, nos dirigimos a Vip2Car/Authorization.
+        - Escogemos la opción de BearerToken
+        - Pegamos el token
+```
+
+Y listo, todos los endpoints estarán operativos para ser usados
